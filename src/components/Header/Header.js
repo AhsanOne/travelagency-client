@@ -31,8 +31,8 @@ const Header = () => {
                         <NavDropdown.Item href="#action/3.1">{user.displayName}</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="/myorder">My Order</NavDropdown.Item>
-                        <NavDropdown.Item href="/allorder">Manage All Order</NavDropdown.Item>
-                        <NavDropdown.Item href="/addnew">Add New Service</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/manageallorder">Manage All Order</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/addnewservice">Add New Service</NavDropdown.Item>
                         <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                     </NavDropdown> : <Nav className="ms-auto">
                         <Nav.Link as={Link} className="d-flex" to="/login">{user_icon} <span className="ms-2 text-main">Login</span></Nav.Link>

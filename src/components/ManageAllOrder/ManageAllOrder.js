@@ -2,29 +2,38 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Badge, Container, Table } from 'react-bootstrap'
-import { getStoredOrder, removeFromDb } from '../../utilities/fakeDb'
 
-const MyOrder = () => {
+const ManageAllOrder = () => {
     const [orders, setOrders] = useState([])
-    const storedOrder = getStoredOrder()
-    const keys = Object.keys(storedOrder)
-    const trash_icon = <FontAwesomeIcon icon={faTrashAlt} />
+    const [updateOrder, setUpdateOrder] = useState({})
+    const trash_icon = <FontAwesomeIcon className="me-4" icon={faTrashAlt} />
 
     useEffect(() => {
-        fetch('http://localhost:5000/myorder', {
-            method: "POST",
+        fetch('http://localhost:5000/manageallorder')
+            .then(res => res.json())
+            .then(data => setOrders(data))
+    }, [])
+
+    const handleUpdateStatus = order => {
+        const updateOrder = order
+        updateOrder.orderStatus = "approve"
+        setUpdateOrder(updateOrder)
+        fetch(`http://localhost:5000/orders/${order._id}`, {
+            method: 'PUT',
             headers: {
-                "content-type": "application/json"
+                'content-type': 'application/json'
             },
-            body: JSON.stringify(keys)
+            body: JSON.stringify(updateOrder)
+
         })
             .then(res => res.json())
             .then(data => {
-                if (data.length) {
-                    setOrders(data)
+                if (data.modifiedCount > 0) {
+                    alert('Update Successfull!')
+                    setUpdateOrder({})
                 }
             })
-    }, [])
+    }
 
     const handleDeleteOrder = (id, key) => {
         const url = `http://localhost:5000/orders/${id}`
@@ -36,7 +45,6 @@ const MyOrder = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount > 0) {
-                        removeFromDb(key)
                         alert('Successfully deleted!')
                         const remeiningOrders = orders.filter(orders => orders._id !== id)
                         setOrders(remeiningOrders)
@@ -44,6 +52,7 @@ const MyOrder = () => {
                 })
         }
     }
+
     return (
         <div className="mt-5">
             <Container>
@@ -66,7 +75,7 @@ const MyOrder = () => {
                                 <td>{order.rest.destination}</td>
                                 <td><Badge bg="danger">{order.orderStatus}</Badge></td>
                                 <td>{order.rest.price}</td>
-                                <td><span onClick={() => handleDeleteOrder(order._id, order.key)}>{trash_icon}</span></td>
+                                <td><span onClick={() => handleDeleteOrder(order._id, order.key)}>{trash_icon}</span> <Badge bg="success" onClick={() => handleUpdateStatus(order)}>Approve</Badge></td>
                             </tr>)
                         }
                     </tbody>
@@ -76,4 +85,4 @@ const MyOrder = () => {
     )
 }
 
-export default MyOrder
+export default ManageAllOrder

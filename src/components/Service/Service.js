@@ -5,11 +5,11 @@ import { useHistory } from 'react-router-dom'
 import './Service.css'
 
 const Service = (props) => {
-    const { img_url, place, destination, rating, review, ratingDays, price, key } = props.service
+    const { img_url, place, destination, rating, review, ratingDays, price, _id } = props.service
 
     const history = useHistory()
     const handleBook =  () => {
-        history.push(`/order/${key}`)
+        history.push(`/services/${_id}`)
     }
 
     return (

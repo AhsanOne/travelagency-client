@@ -23,7 +23,7 @@ const useFirebase = () => {
             }
             setIsLoading(false)
         })
-    }, [])
+    }, [auth])
 
     const handleSignOut = () => {
         setIsLoading(true)
