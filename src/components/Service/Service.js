@@ -1,10 +1,17 @@
 import React from 'react'
 import { Card, Col } from 'react-bootstrap'
 import Rating from 'react-rating'
+import { useHistory } from 'react-router-dom'
 import './Service.css'
 
 const Service = (props) => {
-    const { img_url, place, destination, rating, review, ratingDays, price } = props.service
+    const { img_url, place, destination, rating, review, ratingDays, price, key } = props.service
+
+    const history = useHistory()
+    const handleBook =  () => {
+        history.push(`/order/${key}`)
+    }
+
     return (
         <Col>
             <Card>
@@ -27,7 +34,7 @@ const Service = (props) => {
                     </div>
                     <div className="d-flex justify-content-between">
                         <h5>${price}</h5>
-                        <button className="btn-regular">Book Now</button>
+                        <button onClick={handleBook} className="btn-regular">Book Now</button>
                     </div>
                 </Card.Body>
             </Card>

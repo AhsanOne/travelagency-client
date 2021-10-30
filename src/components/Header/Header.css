@@ -45,3 +45,8 @@
     border-radius: 50%;
     color: #ff385c;
 }
+
+.dropdown-menu[data-bs-popper]{
+    right: 0;
+    left: auto;
+}
