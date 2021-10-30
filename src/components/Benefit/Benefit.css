@@ -1,0 +1,16 @@
+.benefit{
+    margin-top: 81px;
+}
+.benefit svg{
+    color: #ff385c;
+}
+.benefit .card{
+    background-color: #040e27;
+    border-radius: 10px;
+}
+.benefit .card span{
+    color: white;
+}
+.benefit .card p{
+    color: #6c6c6c;
+}
