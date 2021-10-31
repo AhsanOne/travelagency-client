@@ -44,7 +44,6 @@ const Order = () => {
         .then(res => res.json())
         .then(data => {
             if(data.insertedId){
-                console.log(data)
                 addToDb(service.key)
                 alert('Order Successfull!')
                 e.target.reset()
