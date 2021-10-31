@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth';
 import { addToDb } from '../../utilities/fakeDb';
 import './Order.css'
 
 const Order = () => {
+    const {user} = useAuth()
     const [service, setService] = useState({})
     const { id } = useParams();
     const nameRef = useRef()
@@ -17,7 +19,7 @@ const Order = () => {
     const childrenRef = useRef()
     const {key, ...rest} = service
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${id}`)
+        fetch(`https://frightening-skull-69922.herokuapp.com/services/${id}`)
             .then(res => res.json())
             .then(data => setService(data))
     }, [id])
@@ -34,7 +36,7 @@ const Order = () => {
         const children = childrenRef.current.value
         const orderStatus = "pending"
         const order = {name, email, destination, checkin, checkout, room, audult, children, orderStatus, key, rest}
-        fetch('http://localhost:5000/orders', {
+        fetch('https://frightening-skull-69922.herokuapp.com/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -59,15 +61,15 @@ const Order = () => {
                         <Form onSubmit={handleBookOrder}>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control ref={nameRef} type="text" placeholder="Enter Your Name" />
+                                <Form.Control ref={nameRef} value={user.displayName} type="text" placeholder="Enter Your Name" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
+                                <Form.Control ref={emailRef} value={user.email} type="email" placeholder="Enter email" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicDestination">
                                 <Form.Label>Your Destination</Form.Label>
-                                <Form.Control ref={destinationRef} type="text" placeholder="Enter a destination or hotel name" />
+                                <Form.Control ref={destinationRef} value={service.destination} type="text" placeholder="Enter a destination or hotel name" />
                             </Form.Group>
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCheckIn">

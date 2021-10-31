@@ -13,7 +13,7 @@ const Benefit = () => {
             <Container>
                 <div className="text-center">
                     <h1>Our Benefit</h1>
-                    <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+                    <p>The point of using Lorem Ipsum is that it has a more-or-less<br/> normal distribution of letters.</p>
                 </div>
                 <Row xs={1} md={3} className="g-4 mt-5">
                     <Col>

@@ -25,7 +25,7 @@ const AddNewService = () => {
         const details = detailsRef.current.value
         const service = { key, place, destination, rating, review, ratingDays, price, img_url, details }
         
-        fetch('http://localhost:5000/services', {
+        fetch('https://frightening-skull-69922.herokuapp.com/services', {
             method: "POST",
             headers:{
                 "content-type": "application/json",

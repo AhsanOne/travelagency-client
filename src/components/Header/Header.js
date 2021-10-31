@@ -16,7 +16,7 @@ const Header = () => {
         <div>
             <Navbar>
                 <Container>
-                    <Navbar.Brand className="logo" href="#home">{plane} Travelagency</Navbar.Brand>
+                    <Navbar.Brand className="logo" as={Link} to="/">{plane} Travelagency</Navbar.Brand>
                     <Form className="d-md-flex d-none search-form ms-auto">
                         <FormControl
                             type="search"
